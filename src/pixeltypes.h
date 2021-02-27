@@ -85,10 +85,11 @@ typedef enum {
     HUE_PINK = 224
 } HSVHue;
 
+
 /// Representation of an RGB pixel (Red, Green, Blue)
 struct CRGB {
-	union {
-		struct {
+    union {
+        struct {
             union {
                 uint8_t r;
                 uint8_t red;
@@ -102,11 +103,11 @@ struct CRGB {
                 uint8_t blue;
             };
         };
-		uint8_t raw[3];
-	};
+        uint8_t raw[3];
+    };
 
     /// Array access operator to index into the crgb object
-	inline uint8_t& operator[] (uint8_t x) __attribute__((always_inline))
+    inline uint8_t& operator[] (uint8_t x) __attribute__((always_inline))
     {
         return raw[x];
     }
@@ -128,37 +129,37 @@ struct CRGB {
 
     /// allow construction from 32-bit (really 24-bit) bit 0xRRGGBB color code
     inline CRGB( uint32_t colorcode)  __attribute__((always_inline))
-    : r((colorcode >> 16) & 0xFF), g((colorcode >> 8) & 0xFF), b((colorcode >> 0) & 0xFF)
+        : r((colorcode >> 16) & 0xFF), g((colorcode >> 8) & 0xFF), b((colorcode >> 0) & 0xFF)
     {
     }
 
     /// allow construction from a LEDColorCorrection enum
     inline CRGB( LEDColorCorrection colorcode) __attribute__((always_inline))
-    : r((colorcode >> 16) & 0xFF), g((colorcode >> 8) & 0xFF), b((colorcode >> 0) & 0xFF)
+        : r((colorcode >> 16) & 0xFF), g((colorcode >> 8) & 0xFF), b((colorcode >> 0) & 0xFF)
     {
 
     }
 
     /// allow construction from a ColorTemperature enum
     inline CRGB( ColorTemperature colorcode) __attribute__((always_inline))
-    : r((colorcode >> 16) & 0xFF), g((colorcode >> 8) & 0xFF), b((colorcode >> 0) & 0xFF)
+        : r((colorcode >> 16) & 0xFF), g((colorcode >> 8) & 0xFF), b((colorcode >> 0) & 0xFF)
     {
 
     }
 
     /// allow copy construction
-	inline CRGB(const CRGB& rhs) __attribute__((always_inline)) = default;
+    inline CRGB(const CRGB& rhs) __attribute__((always_inline)) = default;
     /// allow construction from HSV color
-	inline CRGB(const CHSV& rhs) __attribute__((always_inline))
+    inline CRGB(const CHSV& rhs) __attribute__((always_inline))
     {
         hsv2rgb_rainbow( rhs, *this);
     }
 
     /// allow assignment from one RGB struct to another
-	inline CRGB& operator= (const CRGB& rhs) __attribute__((always_inline)) = default;
+    inline CRGB& operator= (const CRGB& rhs) __attribute__((always_inline)) = default;
 
     /// allow assignment from 32-bit (really 24-bit) 0xRRGGBB color code
-	inline CRGB& operator= (const uint32_t colorcode) __attribute__((always_inline))
+    inline CRGB& operator= (const uint32_t colorcode) __attribute__((always_inline))
     {
         r = (colorcode >> 16) & 0xFF;
         g = (colorcode >>  8) & 0xFF;
@@ -167,7 +168,7 @@ struct CRGB {
     }
 
     /// allow assignment from R, G, and B
-	inline CRGB& setRGB (uint8_t nr, uint8_t ng, uint8_t nb) __attribute__((always_inline))
+    inline CRGB& setRGB (uint8_t nr, uint8_t ng, uint8_t nb) __attribute__((always_inline))
     {
         r = nr;
         g = ng;
@@ -176,28 +177,28 @@ struct CRGB {
     }
 
     /// allow assignment from H, S, and V
-	inline CRGB& setHSV (uint8_t hue, uint8_t sat, uint8_t val) __attribute__((always_inline))
+    inline CRGB& setHSV (uint8_t hue, uint8_t sat, uint8_t val) __attribute__((always_inline))
     {
         hsv2rgb_rainbow( CHSV(hue, sat, val), *this);
         return *this;
     }
 
     /// allow assignment from just a Hue, saturation and value automatically at max.
-	inline CRGB& setHue (uint8_t hue) __attribute__((always_inline))
+    inline CRGB& setHue (uint8_t hue) __attribute__((always_inline))
     {
         hsv2rgb_rainbow( CHSV(hue, 255, 255), *this);
         return *this;
     }
 
     /// allow assignment from HSV color
-	inline CRGB& operator= (const CHSV& rhs) __attribute__((always_inline))
+    inline CRGB& operator= (const CHSV& rhs) __attribute__((always_inline))
     {
         hsv2rgb_rainbow( rhs, *this);
         return *this;
     }
 
     /// allow assignment from 32-bit (really 24-bit) 0xRRGGBB color code
-	inline CRGB& setColorCode (uint32_t colorcode) __attribute__((always_inline))
+    inline CRGB& setColorCode (uint32_t colorcode) __attribute__((always_inline))
     {
         r = (colorcode >> 16) & 0xFF;
         g = (colorcode >>  8) & 0xFF;
@@ -737,11 +738,11 @@ struct CRGB {
     } HTMLColorCode;
 };
 
-
 inline __attribute__((always_inline)) bool operator== (const CRGB& lhs, const CRGB& rhs)
 {
     return (lhs.r == rhs.r) && (lhs.g == rhs.g) && (lhs.b == rhs.b);
 }
+
 
 inline __attribute__((always_inline)) bool operator!= (const CRGB& lhs, const CRGB& rhs)
 {
